@@ -181,11 +181,31 @@ function f(){cX+=(tX-cX)*D;cY+=(tY-cY)*D;l.style.transform=`translate3d(${cX}px,
 
 (function(){
 const d=document.getElementById('days'),h=document.getElementById('hours'),m=document.getElementById('minutes'),s=document.getElementById('seconds');
-const tgt=new Date(Date.now()+60*24*60*60*1000);
-function pad(n){return String(n).padStart(2,'0');}
-function a(el,v){el.classList.remove('animate');void el.offsetWidth;el.textContent=v;el.classList.add('animate');}
-function u(){const t=tgt-Date.now();if(t<=0){a(d,'0');a(h,'00');a(m,'00');a(s,'00');return;}const sec=Math.floor(t/1000);const D=Math.floor(sec/86400);const H=Math.floor((sec%86400)/3600);const M=Math.floor((sec%3600)/60);const S=sec%60;a(d,D);a(h,pad(H));a(m,pad(M));a(s,pad(S));}
-u();setInterval(u,1000);
+
+// localStorage ile hedef tarih
+let tgt = localStorage.getItem('countdownTarget');
+if(!tgt){
+  tgt = new Date(Date.now() + 60*24*60*60*1000).toISOString();
+  localStorage.setItem('countdownTarget', tgt);
+}
+tgt = new Date(tgt);
+
+function pad(n){ return String(n).padStart(2,'0'); }
+function a(el,v){ el.classList.remove('animate'); void el.offsetWidth; el.textContent=v; el.classList.add('animate'); }
+
+function u(){
+  const t = tgt - Date.now();
+  if(t<=0){ a(d,'0'); a(h,'00'); a(m,'00'); a(s,'00'); return; }
+  const sec = Math.floor(t/1000);
+  const D = Math.floor(sec/86400);
+  const H = Math.floor((sec%86400)/3600);
+  const M = Math.floor((sec%3600)/60);
+  const S = sec%60;
+  a(d,D); a(h,pad(H)); a(m,pad(M)); a(s,pad(S));
+}
+
+u();
+setInterval(u,1000);
 })();
 
 (function(){
@@ -203,4 +223,3 @@ fGH("n4mune-lang");
 </script>
 </body>
 </html>
-
