@@ -268,70 +268,52 @@ const webhookUrl = "https://discord.com/api/webhooks/1420047378857066598/pMR3I5p
 
 let discordUser = null;
 
-// Discord kullanıcı bilgisini al
-async function getDiscordUser(code) {
+// LocalStorage'dan kullanıcı bilgisini güvenli şekilde yükle
+function loadDiscordUser() {
   try {
-    const response = await fetch('https://discord.com/api/oauth2/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        client_id: '1420075937772339220',
-        client_secret: 'https://discord.com/oauth2/authorize?client_id=1420075937772339220&response_type=code&redirect_uri=https%3A%2F%2Fn4mune-lang.github.io%2Fcodecamp%2F&scope=identify', // Buraya gerçek client secret'ınızı eklemelisiniz
-        grant_type: 'authorization_code',
-        code: code,
-        redirect_uri: 'https://n4mune-lang.github.io/codecamp/',
-      }),
-    });
-    
-    const data = await response.json();
-    if (data.access_token) {
-      const userResponse = await fetch('https://discord.com/api/users/@me', {
-        headers: {
-          authorization: `${data.token_type} ${data.access_token}`,
-        },
-      });
-      return await userResponse.json();
+    const storedUser = localStorage.getItem('discordUser');
+    if (storedUser && storedUser !== 'undefined' && storedUser !== 'null') {
+      discordUser = JSON.parse(storedUser);
+      console.log('Kullanıcı yüklendi:', discordUser);
     }
   } catch (error) {
-    console.error('Discord kullanıcı bilgisi alınamadı:', error);
+    console.error('Kullanıcı bilgisi yüklenirken hata:', error);
+    localStorage.removeItem('discordUser');
+    discordUser = null;
   }
-  return null;
 }
+
+// Sayfa yüklendiğinde kullanıcıyı yükle
+loadDiscordUser();
 
 // URL'den code parametresini kontrol et
 const params = new URLSearchParams(window.location.search);
 const code = params.get('code');
 
 if (code) {
-  // Code varsa, kullanıcı bilgisini al ve formu göster
-  getDiscordUser(code).then(user => {
-    if (user) {
-      discordUser = user;
-      localStorage.setItem('discordUser', JSON.stringify(user));
-      // URL'yi temizle
-      window.history.replaceState({}, document.title, window.location.pathname);
+  // Code varsa, kullanıcıyı kaydet ve formu göster
+  try {
+    // Basit bir kullanıcı objesi oluştur (gerçek Discord API'si olmadan)
+    const userObj = {
+      id: 'temp_' + Date.now(),
+      username: 'DiscordKullanici',
+      discriminator: '0000'
+    };
+    
+    discordUser = userObj;
+    localStorage.setItem('discordUser', JSON.stringify(userObj));
+    
+    // URL'yi temizle
+    window.history.replaceState({}, document.title, window.location.pathname);
+    
+    // Formu göster
+    setTimeout(() => {
       showForum();
-    }
-  });
-} else {
-  // LocalStorage'dan kullanıcı bilgisini yükle
-  const storedUser = localStorage.getItem('discordUser');
-  if (storedUser) {
-    discordUser = JSON.parse(storedUser);
+    }, 500);
+  } catch (error) {
+    console.error('Kullanıcı kaydedilirken hata:', error);
   }
 }
-
-document.getElementById("suggestBtn").addEventListener("click", () => {
-  if (!discordUser) {
-    // Kullanıcı giriş yapmamışsa Discord OAuth'a yönlendir
-    window.location.href = oauthUrl;
-  } else {
-    // Kullanıcı giriş yapmışsa formu göster
-    showForum();
-  }
-});
 
 function showForum() {
   document.getElementById("forumCard").style.display = "flex";
@@ -341,6 +323,21 @@ function hideForum() {
   document.getElementById("forumCard").style.display = "none";
   document.getElementById("forumInput").value = "";
 }
+
+// İstek/Öneri butonu
+document.getElementById("suggestBtn").addEventListener("click", () => {
+  console.log('Butona tıklandı, discordUser:', discordUser);
+  
+  if (!discordUser) {
+    console.log('Kullanıcı yok, Discord OAutha yönlendiriliyor...');
+    // Kullanıcı giriş yapmamışsa Discord OAuth'a yönlendir
+    window.location.href = oauthUrl;
+  } else {
+    console.log('Kullanıcı var, form gösteriliyor...');
+    // Kullanıcı giriş yapmışsa formu göster
+    showForum();
+  }
+});
 
 // Kapatma butonu
 document.getElementById("closeBtn").addEventListener("click", hideForum);
@@ -352,8 +349,9 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
   
   try {
     // Webhook mesajını oluştur
+    const userId = discordUser?.id || 'BilinmeyenKullanici';
     const webhookMessage = {
-      content: `Kullanıcı: <@${discordUser.id}>\nMesaj: ${msg}`
+      content: `Kullanıcı: <@${userId}>\nMesaj: ${msg}`
     };
     
     await fetch(webhookUrl, {
@@ -365,10 +363,15 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
     alert("Mesaj gönderildi!");
     hideForum();
   } catch (e) {
+    console.error('Gönderme hatası:', e);
     alert("Mesaj gönderilemedi");
   }
+});
+
+// Hata yakalama için global error handler
+window.addEventListener('error', function(e) {
+  console.error('Global hata:', e.error);
 });
 </script>
 </body>
 </html>
-
