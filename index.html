@@ -4,12 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Geri Sayım</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
-  font-family: 'Poppins', 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: 'Montserrat', sans-serif;
   background:#06080a;
   color:#fff;
   overflow:hidden;
@@ -33,7 +33,7 @@ body{
   max-width:980px;width:100%;
   text-align:center;
 }
-h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.75rem;line-height:1.2;font-weight:600;}
+h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.75rem;line-height:1.2}
 
 .countdown-wrapper{
   display:flex;
@@ -92,8 +92,8 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
 .widget .body{display:flex;align-items:center;gap:12px;}
 .widget .body img.icon{width:56px;height:56px;border-radius:8px;object-fit:cover}
 .widget .meta{display:flex;flex-direction:column}
-.widget .meta .title{font-weight:700;font-size:1rem;text-align:left;}
-.widget .meta .sub{font-size:.85rem;opacity:.85;text-align:left;}
+.widget .meta .title{font-weight:700;font-size:1rem;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:120px;}
+.widget .meta .sub{font-size:.85rem;opacity:.85;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
 .widget.spotify{background:#1DB954;}
 .widget.discord{background:#5865F2;}
@@ -103,12 +103,12 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
 
 .progress-container{display:flex;gap:8px;margin-top:20px;justify-content:center}
 .progress-bar{flex:1;height:12px;background:rgba(255,255,255,0.1);border-radius:6px;overflow:hidden;position:relative}
-.progress-bar .fill{height:100%;width:0;background:#1DB954;border-radius:6px;transition:width 1s ease-in-out}
+.progress-bar .fill{height:100%;width:0;background:#1DB954;border-radius:6px;transition:width 1s ease-in-out;text-align:right;padding-right:4px;color:#fff;font-size:0.75rem;line-height:12px;}
 
 .second-card{background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.06);padding:2rem;border-radius:16px;backdrop-filter:blur(6px);width:100%;max-width:980px;text-align:left;display:flex;flex-direction:column;gap:16px}
 .second-card h2{margin-bottom:12px;font-size:1.3rem;font-weight:700}
 .second-card .load-item{display:flex;flex-direction:column;gap:4px}
-.second-card .load-label{font-size:0.9rem;opacity:0.8;display:flex;justify-content:space-between;}
+.second-card .load-label{font-size:0.9rem;opacity:0.8}
 .second-card .load-bar{height:14px;background:rgba(255,255,255,0.1);border-radius:7px;overflow:hidden;position:relative}
 .second-card .load-bar .fill {
   height: 100%;
@@ -116,28 +116,25 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
   background: #8B4513;
   border-radius: 7px;
   transition: width 1s ease-in-out;
+  text-align:right;
+  padding-right:6px;
+  color:#fff;
+  line-height:14px;
+  font-size:0.75rem;
 }
 
 #forumCard{display:none;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.06);padding:1.5rem;border-radius:16px;backdrop-filter:blur(6px);width:100%;max-width:500px;flex-direction:column;gap:10px;margin-top:20px;position:relative;}
-#forumCard textarea{width:100%;padding:10px;border-radius:8px;border:none;resize:none;height:80px;background:rgba(255,255,255,0.1);color:#fff;}
-#forumCard button{padding:8px 12px;border-radius:6px;border:none;background:#8B4513;color:#fff;cursor:pointer;font-weight:600;}
+#forumCard textarea{width:100%;padding:10px;border-radius:8px;border:none;resize:none;height:80px;}
+#forumCard button{padding:8px 12px;border-radius:6px;border:none;background:#8B4513;color:#fff;cursor:pointer;}
 #forumCard .close-btn{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;background:#8B4513;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:bold;font-size:14px;}
 
-#suggestBtn{position:fixed;top:16px;right:16px;padding:10px 14px;border-radius:8px;border:none;background:#8B4513;color:#fff;cursor:pointer;z-index:20;font-weight:600;display:flex;align-items:center;gap:8px;}
-
-.user-profile{position:fixed;top:16px;right:90px;display:flex;align-items:center;gap:8px;background:rgba(0,0,0,0.4);padding:6px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);}
-.user-profile img{width:28px;height:28px;border-radius:50%;}
-.user-profile span{font-size:0.9rem;font-weight:500;}
-
-.success-message{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.8);padding:20px;border-radius:12px;text-align:center;z-index:100;border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(10px);max-width:400px;width:90%;}
-.success-message p{margin-bottom:15px;font-size:1rem;}
-.success-message a{color:#8B4513;text-decoration:none;font-weight:600;}
+#suggestBtn{position:fixed;top:16px;right:16px;padding:10px 14px;border-radius:8px;border:none;background:#8B4513;color:#fff;cursor:pointer;z-index:20;}
+#userAvatar{position:fixed;top:16px;right:80px;width:36px;height:36px;border-radius:50%;display:none;z-index:21;object-fit:cover;}
 
 @media (max-width:720px){
   .card{padding:1.2rem}
   .countdown{flex-wrap:wrap}
   h1.big{font-size:clamp(1.3rem,4vw,1.8rem)}
-  .user-profile{right:16px;top:70px;}
 }
 </style>
 </head>
@@ -146,7 +143,6 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
 <div class="bg" aria-hidden="true">
   <div class="bg__layer" id="bgLayer"></div>
 </div>
-
 
 <div class="wrap">
 
@@ -169,7 +165,7 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
       <img class="icon" id="spImg" src="https://dummyimage.com/300x300/111/fff&text=Spotify" alt="Albüm kapağı">
       <div class="meta">
         <div class="title" id="spTitle">Çalmıyor</div>
-        <div class="sub" id="spSub">Bilgi alınamadı</div>
+        <div class="sub" id="spSub">En son çalındı</div>
       </div>
     </div>
   </div>
@@ -204,18 +200,21 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
 <div class="second-card">
   <h2>Yükleme Durumları</h2>
   <div class="load-item">
-    <div class="load-label">Veritabanı <span id="dbPercent">0%</span></div>
-    <div class="load-bar"><div class="fill" id="dbLoad"></div></div>
+    <div class="load-label">Veritabanı</div>
+    <div class="load-bar"><div class="fill" id="dbLoad">0%</div></div>
   </div>
   <div class="load-item">
-    <div class="load-label">Sunucu <span id="serverPercent">0%</span></div>
-    <div class="load-bar"><div class="fill" id="serverLoad"></div></div>
+    <div class="load-label">Sunucu</div>
+    <div class="load-bar"><div class="fill" id="serverLoad">0%</div></div>
   </div>
   <div class="load-item">
-    <div class="load-label">Kategoriler <span id="catPercent">0%</span></div>
-    <div class="load-bar"><div class="fill" id="catLoad"></div></div>
+    <div class="load-label">Kategoriler</div>
+    <div class="load-bar"><div class="fill" id="catLoad">0%</div></div>
   </div>
 </div>
+
+<img id="userAvatar" alt="Kullanıcı Avatarı">
+<button id="suggestBtn">İstek / Öneri</button>
 
 <div id="forumCard">
   <div class="close-btn" id="closeBtn">X</div>
@@ -224,21 +223,8 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
   <button id="sendBtn">Gönder</button>
 </div>
 
-</div>
-
-<div id="userProfile" class="user-profile" style="display:none;">
-  <img id="userAvatar" src="" alt="Kullanıcı avatarı">
-  <span id="userName">Kullanıcı</span>
-</div>
-
-<div id="successMessage" class="success-message" style="display:none;">
-  <p>Mesajınız Başarıyla İletildi! Takip Etmek İçin <a href="https://discord.gg/duVuC85Uz6" target="_blank">Sunucumuza Katılın!</a></p>
-</div>
-
-<button id="suggestBtn">İstek / Öneri</button>
-
 <script>
-// Parallax efekt
+// Background hareketi
 (function(){
 const l=document.getElementById('bgLayer'),M=50,D=0.8;
 let tX=0,tY=0,cX=0,cY=0,r=null;
@@ -247,323 +233,114 @@ window.addEventListener('mousemove',e=>p(e.clientX,e.clientY),{passive:true});
 function f(){cX+=(tX-cX)*D;cY+=(tY-cY)*D;l.style.transform=`translate3d(${cX}px, ${cY}px, 0) translate(-50%, -50%)`;if(Math.abs(tX-cX)<0.02&&Math.abs(tY-cY)<0.02){cancelAnimationFrame(r);r=null;return;}r=requestAnimationFrame(f);}
 })();
 
-// Geri sayım
+// Countdown
 (function(){
 const d=document.getElementById('days'),h=document.getElementById('hours'),m=document.getElementById('minutes'),s=document.getElementById('seconds');
 let tgt = localStorage.getItem('countdownTarget');
 if(!tgt){ tgt = new Date(Date.now() + 60*24*60*60*1000).toISOString(); localStorage.setItem('countdownTarget', tgt); }
 tgt = new Date(tgt);
 function pad(n){ return String(n).padStart(2,'0'); }
-function animateValue(el, newValue) {
-  const oldValue = el.textContent;
-  if (oldValue === newValue) return;
-  
-  el.style.transform = 'scale(1.1)';
-  el.style.opacity = '0.7';
-  
-  setTimeout(() => {
-    el.textContent = newValue;
-    el.style.transform = 'scale(1)';
-    el.style.opacity = '1';
-  }, 150);
-}
-function u(){ 
-  const t = tgt - Date.now(); 
-  if(t<=0){ 
-    animateValue(d,'0'); 
-    animateValue(h,'00'); 
-    animateValue(m,'00'); 
-    animateValue(s,'00'); 
-    return; 
-  } 
-  const sec = Math.floor(t/1000); 
-  const D = Math.floor(sec/86400); 
-  const H = Math.floor((sec%86400)/3600); 
-  const M = Math.floor((sec%3600)/60); 
-  const S = sec%60; 
-  
-  animateValue(d, D.toString());
-  animateValue(h, pad(H));
-  animateValue(m, pad(M));
-  animateValue(s, pad(S));
-}
-u(); 
-setInterval(u,1000);
+function a(el,v){ el.classList.remove('animate'); void el.offsetWidth; el.textContent=v; el.classList.add('animate'); }
+function u(){ const t = tgt - Date.now(); if(t<=0){ a(d,'0'); a(h,'00'); a(m,'00'); a(s,'00'); return; } const sec = Math.floor(t/1000); const D = Math.floor(sec/86400); const H = Math.floor((sec%86400)/3600); const M = Math.floor((sec%3600)/60); const S = sec%60; a(d,D); a(h,pad(H)); a(m,pad(M)); a(s,pad(S)); }
+u(); setInterval(u,1000);
 })();
 
-// Spotify ve Discord entegrasyonu
+// Spotify Widget
 (function(){
 const dn=document.getElementById('discordName'),di=document.getElementById('dcImg'),st=document.getElementById('spTitle'),ss=document.getElementById('spSub'),si=document.getElementById('spImg');
 const uid="1385334666483208213";
-let curS=null;
-let lastPlayed = {song: null, artist: null, albumArt: null};
-
-function truncateText(text, maxLength) {
-  if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength) + '...';
-}
-
-async function fetchLanyard(){try{
-  const r=await fetch(`https://api.lanyard.rest/v1/users/${uid}`);
-  const j=await r.json();
-  if(!j.success) throw new Error('API başarısız');
-  const d=j.data;
-  const u=d.discord_user;
-  
-  di.src=`https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=128`;
-  dn.textContent=u.username;
-  
-  if(d.listening_to_spotify){
-    curS=d.spotify;
-    
-    // Şarkı bilgilerini kaydet
-    lastPlayed = {
-      song: curS.song,
-      artist: curS.artist,
-      albumArt: curS.album_art_url
-    };
-    
-    st.textContent = truncateText(curS.song, 10);
-    si.src=curS.album_art_url;
-    updateSpotifyTime();
-  } else {
-    // Spotify çalmıyorsa son çalınanı göster
-    if(lastPlayed.song) {
-      st.textContent = truncateText(lastPlayed.song, 10);
-      si.src=lastPlayed.albumArt || "https://dummyimage.com/300x300/111/fff&text=Spotify";
-      ss.textContent = 'En son çalındı';
-      curS = null;
+let curS=null,lastTrack={song:'-',artist:'-',album_art_url:'https://dummyimage.com/300x300/111/fff&text=Spotify'};
+async function fL(){
+  try{
+    const r=await fetch(`https://api.lanyard.rest/v1/users/${uid}`);
+    const j=await r.json();
+    if(!j.success) throw 0;
+    const d=j.data;
+    const u=d.discord_user;
+    di.src=`https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=128`;
+    dn.textContent=u.username;
+    if(d.listening_to_spotify){
+      curS=d.spotify;
+      lastTrack = curS;
+      st.textContent=curS.song.length>10?curS.song.slice(0,10):curS.song;
+      si.src=curS.album_art_url;
+      ss.textContent='Çalıyor';
     } else {
       curS=null;
-      st.textContent='Çalmıyor';
-      ss.textContent='Bilgi alınamadı';
-      si.src="https://dummyimage.com/300x300/111/fff&text=Spotify";
+      st.textContent=lastTrack.song.length>10?lastTrack.song.slice(0,10):lastTrack.song;
+      si.src=lastTrack.album_art_url;
+      ss.textContent='En son çalındı';
     }
+  } catch(e){
+    dn.textContent="Discord verisi yok"; st.textContent="Spotify: Bağlantı yok"; ss.textContent=''; si.src="https://dummyimage.com/300x300/111/fff&text=Spotify";
   }
-}catch(e){
-  dn.textContent="Discord verisi yok";
-  st.textContent="Spotify: Bağlantı yok";
-  ss.textContent='';
-}}
-
-function updateSpotifyTime(){
-  if(!curS || !curS.timestamps) return;
-  
-  const now = Date.now();
-  const elapsed = Math.floor((now - curS.timestamps.start) / 1000);
-  const total = Math.floor((curS.timestamps.end - curS.timestamps.start) / 1000);
-  
-  // Eğer geçen süre toplam süreye eşit veya fazlaysa, güncellemeyi durdur
-  if(elapsed >= total) {
-    ss.textContent = `${curS.artist} • Tamamlandı`;
-    return;
-  }
-  
-  function formatTime(sec){
-    const mm=Math.floor(sec/60).toString().padStart(2,'0');
-    const ss=(sec%60).toString().padStart(2,'0');
-    return `${mm}:${ss}`;
-  }
-  
-  ss.textContent=`${curS.artist} • ${formatTime(elapsed)} / ${formatTime(total)}`;
 }
-
-setInterval(fetchLanyard, 5000);
-setInterval(() => {
-  if(curS) updateSpotifyTime();
-}, 1000);
+setInterval(fL,3000); fL();
 })();
 
-// GitHub entegrasyonu
+// GitHub Widget
 let gh=null;
-async function fetchGitHub(u){try{
-  const r=await fetch(`https://api.github.com/users/${u}`);
-  const d=await r.json();
-  gh=d;
-  document.getElementById('ghImg').src=d.avatar_url;
-  document.getElementById('ghName').textContent=d.login;
-  document.getElementById('ghSub').textContent=`Public repos: ${d.public_repos} • Followers: ${d.followers}`;
-}catch(e){
-  document.getElementById('ghName').textContent="GitHub yüklenemedi";
-  document.getElementById('ghSub').textContent='';
-}}
-fetchGitHub("n4mune-lang");
-
-// Yükleme durumları
-function animateLoad(id, target, delay){
-  const el = document.getElementById(id);
-  const percentEl = document.getElementById(id.replace('Load', 'Percent'));
-  
-  let width = 0;
-  let current = 0;
-  
-  const interval = setInterval(() => {
-    if(current >= target){ 
-      clearInterval(interval); 
-      return; 
-    }
-    
-    current++;
-    width = current;
-    
-    el.style.width = width + '%';
-    percentEl.textContent = width + '%';
-  }, delay);
+async function fGH(u){
+  try{
+    const r=await fetch(`https://api.github.com/users/${u}`);
+    const d=await r.json();
+    gh=d;
+    document.getElementById('ghImg').src=d.avatar_url;
+    document.getElementById('ghName').textContent=d.login;
+    document.getElementById('ghSub').textContent=`Public repos: ${d.public_repos} • Followers: ${d.followers}`;
+  } catch(e){document.getElementById('ghName').textContent="GitHub yüklenemedi"; document.getElementById('ghSub').textContent='';}
 }
+fGH("n4mune-lang");
 
-function resetAndAnimateLoads() {
-  // Sıfırla
-  document.getElementById('dbLoad').style.width = '0%';
-  document.getElementById('serverLoad').style.width = '0%';
-  document.getElementById('catLoad').style.width = '0%';
-  
-  document.getElementById('dbPercent').textContent = '0%';
-  document.getElementById('serverPercent').textContent = '0%';
-  document.getElementById('catPercent').textContent = '0%';
-  
-  // Yeniden başlat
-  setTimeout(() => {
-    animateLoad('dbLoad', 22, 20);
-    animateLoad('serverLoad', 36, 25);
-    animateLoad('catLoad', 12, 30);
-  }, 500);
+// Load Bars
+function animateLoad(id,target,speed){
+  let width=0; const el=document.getElementById(id); el.style.width='0%'; el.dataset.val='0';
+  const intv = setInterval(()=>{if(width>=target){el.style.width=target+'%';el.textContent=target+'%'; clearInterval(intv); return;} width++; el.style.width=width+'%'; el.textContent=width+'%';},speed);
 }
+function repeatLoads(){animateLoad('dbLoad',22,10);animateLoad('serverLoad',36,12);animateLoad('catLoad',12,15);}
+repeatLoads(); setInterval(()=>{repeatLoads();},15000);
 
-// İlk animasyonu başlat
-resetAndAnimateLoads();
+// Forum / Discord OAuth
+const oauthUrl="https://discord.com/oauth2/authorize?client_id=1420075937772339220&response_type=code&redirect_uri=https%3A%2F%2Fn4mune-lang.github.io%2Fcodecamp%2F&scope=identify";
+const webhookUrl="https://discord.com/api/webhooks/1420047378857066598/pMR3I5p4Pk3Qg4NCcfxS-8ktrUZDW5CW5CW1xG11Iq5R3bsa5K8DtxtvpxnCc_3fA2njCzA";
+let discordUser=null;
 
-// Her 15 saniyede bir animasyonu yeniden başlat
-setInterval(resetAndAnimateLoads, 15000);
-
-// Discord OAuth ve form işlemleri
-const oauthUrl = "https://discord.com/oauth2/authorize?client_id=1420075937772339220&response_type=code&redirect_uri=https%3A%2F%2Fn4mune-lang.github.io%2Fcodecamp%2F&scope=identify";
-const webhookUrl = "https://discord.com/api/webhooks/1420047378857066598/pMR3I5p4Pk3Qg4NCcfxS-8ktrUZDW5CW1xG11Iq5R3bsa5K8DtxtvpxnCc_3fA2njCzA";
-
-let discordUser = null;
-
-function loadDiscordUser() {
-  try {
-    const storedUser = localStorage.getItem('discordUser');
-    if (storedUser && storedUser !== 'undefined' && storedUser !== 'null') {
-      discordUser = JSON.parse(storedUser);
-      console.log('Kullanıcı yüklendi:', discordUser);
-      showUserProfile();
-    }
-  } catch (error) {
-    console.error('Kullanıcı bilgisi yüklenirken hata:', error);
-    localStorage.removeItem('discordUser');
-    discordUser = null;
-    hideUserProfile();
-  }
+function loadDiscordUser(){
+  try{
+    const storedUser=localStorage.getItem('discordUser');
+    if(storedUser && storedUser!=='undefined' && storedUser!=='null'){ discordUser=JSON.parse(storedUser); if(discordUser.avatar)document.getElementById('userAvatar').src=discordUser.avatar; document.getElementById('userAvatar').style.display='block';}
+  }catch(e){localStorage.removeItem('discordUser'); discordUser=null;}
 }
-
-function showUserProfile() {
-  if (discordUser) {
-    document.getElementById('userAvatar').src = discordUser.avatar 
-      ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png?size=64`
-      : 'https://cdn.discordapp.com/embed/avatars/0.png';
-    document.getElementById('userName').textContent = discordUser.username;
-    document.getElementById('userProfile').style.display = 'flex';
-  }
-}
-
-function hideUserProfile() {
-  document.getElementById('userProfile').style.display = 'none';
-}
-
 loadDiscordUser();
 
-// URL'den OAuth kodu kontrol et
-const params = new URLSearchParams(window.location.search);
-const code = params.get('code');
-
-if (code) {
-  // Burada gerçek OAuth token alımı yapılmalı, şimdilik mock veri kullanıyoruz
-  try {
-    // Gerçek uygulamada burada Discord API'sine istek atıp kullanıcı bilgileri alınmalı
-    const mockUser = {
-      id: '123456789',
-      username: 'DiscordKullanici',
-      discriminator: '0000',
-      avatar: 'a_abc123'
-    };
-    
-    discordUser = mockUser;
-    localStorage.setItem('discordUser', JSON.stringify(mockUser));
-    
-    // URL'den kodu temizle
-    window.history.replaceState({}, document.title, window.location.pathname);
-    
-    // Kullanıcı profilini göster
-    showUserProfile();
-    
-    // Formu otomatik aç
-    setTimeout(() => {
-      showForum();
-    }, 1000);
-  } catch (error) {
-    console.error('Kullanıcı kaydedilirken hata:', error);
-  }
+const params=new URLSearchParams(window.location.search);
+const code=params.get('code');
+if(code){
+  discordUser={id:'temp_'+Date.now(),username:'DiscordKullanici',discriminator:'0000',avatar:'https://cdn.discordapp.com/embed/avatars/0.png'};
+  localStorage.setItem('discordUser',JSON.stringify(discordUser));
+  document.getElementById('userAvatar').src=discordUser.avatar; document.getElementById('userAvatar').style.display='block';
+  window.history.replaceState({},document.title,window.location.pathname);
+  setTimeout(()=>{showForum();},500);
 }
 
-function showForum() {
-  document.getElementById("forumCard").style.display = "flex";
-}
+function showForum(){document.getElementById("forumCard").style.display="flex";}
+function hideForum(){document.getElementById("forumCard").style.display="none";document.getElementById("forumInput").value="";}
 
-function hideForum() {
-  document.getElementById("forumCard").style.display = "none";
-  document.getElementById("forumInput").value = "";
-}
-
-function showSuccessMessage() {
-  document.getElementById("successMessage").style.display = "block";
-  setTimeout(() => {
-    document.getElementById("successMessage").style.display = "none";
-  }, 5000);
-}
-
-document.getElementById("suggestBtn").addEventListener("click", () => {
-  console.log('Butona tıklandı, discordUser:', discordUser);
-  
-  if (!discordUser) {
-    console.log('Kullanıcı yok, Discord OAutha yönlendiriliyor...');
-    window.location.href = oauthUrl;
-  } else {
-    console.log('Kullanıcı var, form gösteriliyor...');
-    showForum();
-  }
+document.getElementById("suggestBtn").addEventListener("click",()=>{
+  if(!discordUser){window.location.href=oauthUrl;} else {showForum();}
 });
-
-document.getElementById("closeBtn").addEventListener("click", hideForum);
-
-document.getElementById("sendBtn").addEventListener("click", async () => {
-  const msg = document.getElementById("forumInput").value.trim();
-  if (!msg) return alert("Mesaj boş olamaz");
-  
-  try {
-    const userId = discordUser?.id || 'BilinmeyenKullanici';
-    const webhookMessage = {
-      content: `Kullanıcı: <@${userId}>\nMesaj: ${msg}`
-    };
-    
-    await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(webhookMessage)
-    });
-    
-    showSuccessMessage();
+document.getElementById("closeBtn").addEventListener("click",hideForum);
+document.getElementById("sendBtn").addEventListener("click",async()=>{
+  const msg=document.getElementById("forumInput").value; if(!msg) return alert("Mesaj boş olamaz");
+  try{
+    const userId=discordUser?.id||'BilinmeyenKullanici';
+    const webhookMessage={content:`Kullanıcı: <@${userId}>\nMesajı: ${msg}`};
+    await fetch(webhookUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(webhookMessage)});
     hideForum();
-  } catch (e) {
-    console.error('Gönderme hatası:', e);
-    alert("Mesaj gönderilemedi");
-  }
+    alert('Mesajınız Başarıyla İletildi! Takip Etmek İçin Sunucumuza Katılın: https://discord.gg/duVuC85Uz6');
+  }catch(e){console.error('Gönderme hatası:',e); alert("Mesaj gönderilemedi");}
 });
 
-// Global hata yakalama
-window.addEventListener('error', function(e) {
-  console.error('Global hata:', e.error);
-});
 </script>
 </body>
 </html>
