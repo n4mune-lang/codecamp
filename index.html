@@ -137,7 +137,6 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
   <div class="bg__layer" id="bgLayer"></div>
 </div>
 
-<button id="suggestBtn">İstek / Öneri</button>
 
 <div class="wrap">
 
@@ -268,7 +267,6 @@ const webhookUrl = "https://discord.com/api/webhooks/1420047378857066598/pMR3I5p
 
 let discordUser = null;
 
-// LocalStorage'dan kullanıcı bilgisini güvenli şekilde yükle
 function loadDiscordUser() {
   try {
     const storedUser = localStorage.getItem('discordUser');
@@ -283,17 +281,13 @@ function loadDiscordUser() {
   }
 }
 
-// Sayfa yüklendiğinde kullanıcıyı yükle
 loadDiscordUser();
 
-// URL'den code parametresini kontrol et
 const params = new URLSearchParams(window.location.search);
 const code = params.get('code');
 
 if (code) {
-  // Code varsa, kullanıcıyı kaydet ve formu göster
   try {
-    // Basit bir kullanıcı objesi oluştur (gerçek Discord API'si olmadan)
     const userObj = {
       id: 'temp_' + Date.now(),
       username: 'DiscordKullanici',
@@ -303,10 +297,8 @@ if (code) {
     discordUser = userObj;
     localStorage.setItem('discordUser', JSON.stringify(userObj));
     
-    // URL'yi temizle
     window.history.replaceState({}, document.title, window.location.pathname);
     
-    // Formu göster
     setTimeout(() => {
       showForum();
     }, 500);
@@ -324,31 +316,25 @@ function hideForum() {
   document.getElementById("forumInput").value = "";
 }
 
-// İstek/Öneri butonu
 document.getElementById("suggestBtn").addEventListener("click", () => {
   console.log('Butona tıklandı, discordUser:', discordUser);
   
   if (!discordUser) {
     console.log('Kullanıcı yok, Discord OAutha yönlendiriliyor...');
-    // Kullanıcı giriş yapmamışsa Discord OAuth'a yönlendir
     window.location.href = oauthUrl;
   } else {
     console.log('Kullanıcı var, form gösteriliyor...');
-    // Kullanıcı giriş yapmışsa formu göster
     showForum();
   }
 });
 
-// Kapatma butonu
 document.getElementById("closeBtn").addEventListener("click", hideForum);
 
-// Gönderme butonu
 document.getElementById("sendBtn").addEventListener("click", async () => {
   const msg = document.getElementById("forumInput").value;
   if (!msg) return alert("Mesaj boş olamaz");
   
   try {
-    // Webhook mesajını oluştur
     const userId = discordUser?.id || 'BilinmeyenKullanici';
     const webhookMessage = {
       content: `Kullanıcı: <@${userId}>\nMesaj: ${msg}`
@@ -368,10 +354,10 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
   }
 });
 
-// Hata yakalama için global error handler
 window.addEventListener('error', function(e) {
   console.error('Global hata:', e.error);
 });
 </script>
 </body>
 </html>
+
