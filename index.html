@@ -278,7 +278,7 @@ async function getDiscordUser(code) {
       },
       body: new URLSearchParams({
         client_id: '1420075937772339220',
-        client_secret: 'YOUR_CLIENT_SECRET', // Buraya gerçek client secret'ınızı eklemelisiniz
+        client_secret: 'https://discord.com/oauth2/authorize?client_id=1420075937772339220&response_type=code&redirect_uri=https%3A%2F%2Fn4mune-lang.github.io%2Fcodecamp%2F&scope=identify', // Buraya gerçek client secret'ınızı eklemelisiniz
         grant_type: 'authorization_code',
         code: code,
         redirect_uri: 'https://n4mune-lang.github.io/codecamp/',
@@ -371,3 +371,4 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
 </script>
 </body>
 </html>
+
