@@ -4,12 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Geri Sayım</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
-  font-family: 'Montserrat', sans-serif;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   background:#06080a;
   color:#fff;
   overflow:hidden;
@@ -92,8 +91,8 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
 .widget .body{display:flex;align-items:center;gap:12px;}
 .widget .body img.icon{width:56px;height:56px;border-radius:8px;object-fit:cover}
 .widget .meta{display:flex;flex-direction:column}
-.widget .meta .title{font-weight:700;font-size:1rem;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:120px;}
-.widget .meta .sub{font-size:.85rem;opacity:.85;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.widget .meta .title{font-weight:700;font-size:1rem;text-align:left;}
+.widget .meta .sub{font-size:.85rem;opacity:.85;text-align:left;}
 
 .widget.spotify{background:#1DB954;}
 .widget.discord{background:#5865F2;}
@@ -103,7 +102,7 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
 
 .progress-container{display:flex;gap:8px;margin-top:20px;justify-content:center}
 .progress-bar{flex:1;height:12px;background:rgba(255,255,255,0.1);border-radius:6px;overflow:hidden;position:relative}
-.progress-bar .fill{height:100%;width:0;background:#1DB954;border-radius:6px;transition:width 1s ease-in-out;text-align:right;padding-right:4px;color:#fff;font-size:0.75rem;line-height:12px;}
+.progress-bar .fill{height:100%;width:0;background:#1DB954;border-radius:6px;transition:width 1s ease-in-out}
 
 .second-card{background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.06);padding:2rem;border-radius:16px;backdrop-filter:blur(6px);width:100%;max-width:980px;text-align:left;display:flex;flex-direction:column;gap:16px}
 .second-card h2{margin-bottom:12px;font-size:1.3rem;font-weight:700}
@@ -116,11 +115,6 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
   background: #8B4513;
   border-radius: 7px;
   transition: width 1s ease-in-out;
-  text-align:right;
-  padding-right:6px;
-  color:#fff;
-  line-height:14px;
-  font-size:0.75rem;
 }
 
 #forumCard{display:none;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.06);padding:1.5rem;border-radius:16px;backdrop-filter:blur(6px);width:100%;max-width:500px;flex-direction:column;gap:10px;margin-top:20px;position:relative;}
@@ -129,7 +123,6 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
 #forumCard .close-btn{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;background:#8B4513;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:bold;font-size:14px;}
 
 #suggestBtn{position:fixed;top:16px;right:16px;padding:10px 14px;border-radius:8px;border:none;background:#8B4513;color:#fff;cursor:pointer;z-index:20;}
-#userAvatar{position:fixed;top:16px;right:80px;width:36px;height:36px;border-radius:50%;display:none;z-index:21;object-fit:cover;}
 
 @media (max-width:720px){
   .card{padding:1.2rem}
@@ -143,6 +136,7 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
 <div class="bg" aria-hidden="true">
   <div class="bg__layer" id="bgLayer"></div>
 </div>
+
 
 <div class="wrap">
 
@@ -165,7 +159,7 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
       <img class="icon" id="spImg" src="https://dummyimage.com/300x300/111/fff&text=Spotify" alt="Albüm kapağı">
       <div class="meta">
         <div class="title" id="spTitle">Çalmıyor</div>
-        <div class="sub" id="spSub">En son çalındı</div>
+        <div class="sub" id="spSub">Bilgi alınamadı</div>
       </div>
     </div>
   </div>
@@ -201,20 +195,17 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
   <h2>Yükleme Durumları</h2>
   <div class="load-item">
     <div class="load-label">Veritabanı</div>
-    <div class="load-bar"><div class="fill" id="dbLoad">0%</div></div>
+    <div class="load-bar"><div class="fill" id="dbLoad"></div></div>
   </div>
   <div class="load-item">
     <div class="load-label">Sunucu</div>
-    <div class="load-bar"><div class="fill" id="serverLoad">0%</div></div>
+    <div class="load-bar"><div class="fill" id="serverLoad"></div></div>
   </div>
   <div class="load-item">
     <div class="load-label">Kategoriler</div>
-    <div class="load-bar"><div class="fill" id="catLoad">0%</div></div>
+    <div class="load-bar"><div class="fill" id="catLoad"></div></div>
   </div>
 </div>
-
-<img id="userAvatar" alt="Kullanıcı Avatarı">
-<button id="suggestBtn">İstek / Öneri</button>
 
 <div id="forumCard">
   <div class="close-btn" id="closeBtn">X</div>
@@ -223,8 +214,9 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
   <button id="sendBtn">Gönder</button>
 </div>
 
+</div>
+
 <script>
-// Background hareketi
 (function(){
 const l=document.getElementById('bgLayer'),M=50,D=0.8;
 let tX=0,tY=0,cX=0,cY=0,r=null;
@@ -233,7 +225,6 @@ window.addEventListener('mousemove',e=>p(e.clientX,e.clientY),{passive:true});
 function f(){cX+=(tX-cX)*D;cY+=(tY-cY)*D;l.style.transform=`translate3d(${cX}px, ${cY}px, 0) translate(-50%, -50%)`;if(Math.abs(tX-cX)<0.02&&Math.abs(tY-cY)<0.02){cancelAnimationFrame(r);r=null;return;}r=requestAnimationFrame(f);}
 })();
 
-// Countdown
 (function(){
 const d=document.getElementById('days'),h=document.getElementById('hours'),m=document.getElementById('minutes'),s=document.getElementById('seconds');
 let tgt = localStorage.getItem('countdownTarget');
@@ -245,102 +236,127 @@ function u(){ const t = tgt - Date.now(); if(t<=0){ a(d,'0'); a(h,'00'); a(m,'00
 u(); setInterval(u,1000);
 })();
 
-// Spotify Widget
 (function(){
 const dn=document.getElementById('discordName'),di=document.getElementById('dcImg'),st=document.getElementById('spTitle'),ss=document.getElementById('spSub'),si=document.getElementById('spImg');
 const uid="1385334666483208213";
-let curS=null,lastTrack={song:'-',artist:'-',album_art_url:'https://dummyimage.com/300x300/111/fff&text=Spotify'};
-async function fL(){
-  try{
-    const r=await fetch(`https://api.lanyard.rest/v1/users/${uid}`);
-    const j=await r.json();
-    if(!j.success) throw 0;
-    const d=j.data;
-    const u=d.discord_user;
-    di.src=`https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=128`;
-    dn.textContent=u.username;
-    if(d.listening_to_spotify){
-      curS=d.spotify;
-      lastTrack = curS;
-      st.textContent=curS.song.length>10?curS.song.slice(0,10):curS.song;
-      si.src=curS.album_art_url;
-      ss.textContent='Çalıyor';
-    } else {
-      curS=null;
-      st.textContent=lastTrack.song.length>10?lastTrack.song.slice(0,10):lastTrack.song;
-      si.src=lastTrack.album_art_url;
-      ss.textContent='En son çalındı';
-    }
-  } catch(e){
-    dn.textContent="Discord verisi yok"; st.textContent="Spotify: Bağlantı yok"; ss.textContent=''; si.src="https://dummyimage.com/300x300/111/fff&text=Spotify";
-  }
-}
-setInterval(fL,3000); fL();
+let curS=null;
+async function fL(){try{const r=await fetch(`https://api.lanyard.rest/v1/users/${uid}`);const j=await r.json();if(!j.success)throw 0;const d=j.data;const u=d.discord_user;di.src=`https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=128`;dn.textContent=u.username;if(d.listening_to_spotify){curS=d.spotify;st.textContent=curS.song;si.src=curS.album_art_url;uST();}else{curS=null;st.textContent='Çalmıyor';ss.textContent='Bilgi alınamadı';si.src="https://dummyimage.com/300x300/111/fff&text=Spotify";}}catch(e){dn.textContent="Discord verisi yok";st.textContent="Spotify: Bağlantı yok";ss.textContent='';}}
+function uST(){if(!curS||!curS.timestamps)return;const n=Date.now();let e=Math.floor((n-curS.timestamps.start)/1000);let t=Math.floor((curS.timestamps.end-curS.timestamps.start)/1000);function f(sec){const mm=Math.floor(sec/60).toString().padStart(2,'0');const ss=(sec%60).toString().padStart(2,'0');return `${mm}:${ss}`;}ss.textContent=`${curS.artist} • ${f(e)} / ${f(t)}`;}
+setInterval(fL,1000);setInterval(()=>{if(curS)uST();},1000);
 })();
 
-// GitHub Widget
 let gh=null;
-async function fGH(u){
-  try{
-    const r=await fetch(`https://api.github.com/users/${u}`);
-    const d=await r.json();
-    gh=d;
-    document.getElementById('ghImg').src=d.avatar_url;
-    document.getElementById('ghName').textContent=d.login;
-    document.getElementById('ghSub').textContent=`Public repos: ${d.public_repos} • Followers: ${d.followers}`;
-  } catch(e){document.getElementById('ghName').textContent="GitHub yüklenemedi"; document.getElementById('ghSub').textContent='';}
-}
+async function fGH(u){try{const r=await fetch(`https://api.github.com/users/${u}`);const d=await r.json();gh=d;document.getElementById('ghImg').src=d.avatar_url;document.getElementById('ghName').textContent=d.login;document.getElementById('ghSub').textContent=`Public repos: ${d.public_repos} • Followers: ${d.followers}`;}catch(e){document.getElementById('ghName').textContent="GitHub yüklenemedi";document.getElementById('ghSub').textContent='';}}
 fGH("n4mune-lang");
 
-// Load Bars
-function animateLoad(id,target,speed){
-  let width=0; const el=document.getElementById(id); el.style.width='0%'; el.dataset.val='0';
-  const intv = setInterval(()=>{if(width>=target){el.style.width=target+'%';el.textContent=target+'%'; clearInterval(intv); return;} width++; el.style.width=width+'%'; el.textContent=width+'%';},speed);
+function animateLoad(id, target, delay){
+  let width=0;
+  const el = document.getElementById(id);
+  const interval = setInterval(()=>{
+    if(width>=target){ clearInterval(interval); return; }
+    width++;
+    el.style.width=width+'%';
+  }, delay);
 }
-function repeatLoads(){animateLoad('dbLoad',22,10);animateLoad('serverLoad',36,12);animateLoad('catLoad',12,15);}
-repeatLoads(); setInterval(()=>{repeatLoads();},15000);
+animateLoad('dbLoad', 22, 20);
+animateLoad('serverLoad', 36, 25);
+animateLoad('catLoad', 12, 30);
 
-// Forum / Discord OAuth
-const oauthUrl="https://discord.com/oauth2/authorize?client_id=1420075937772339220&response_type=code&redirect_uri=https%3A%2F%2Fn4mune-lang.github.io%2Fcodecamp%2F&scope=identify";
-const webhookUrl="https://discord.com/api/webhooks/1420047378857066598/pMR3I5p4Pk3Qg4NCcfxS-8ktrUZDW5CW5CW1xG11Iq5R3bsa5K8DtxtvpxnCc_3fA2njCzA";
-let discordUser=null;
+const oauthUrl = "https://discord.com/oauth2/authorize?client_id=1420075937772339220&response_type=code&redirect_uri=https%3A%2F%2Fn4mune-lang.github.io%2Fcodecamp%2F&scope=identify";
+const webhookUrl = "https://discord.com/api/webhooks/1420047378857066598/pMR3I5p4Pk3Qg4NCcfxS-8ktrUZDW5CW5CW1xG11Iq5R3bsa5K8DtxtvpxnCc_3fA2njCzA";
 
-function loadDiscordUser(){
-  try{
-    const storedUser=localStorage.getItem('discordUser');
-    if(storedUser && storedUser!=='undefined' && storedUser!=='null'){ discordUser=JSON.parse(storedUser); if(discordUser.avatar)document.getElementById('userAvatar').src=discordUser.avatar; document.getElementById('userAvatar').style.display='block';}
-  }catch(e){localStorage.removeItem('discordUser'); discordUser=null;}
+let discordUser = null;
+
+function loadDiscordUser() {
+  try {
+    const storedUser = localStorage.getItem('discordUser');
+    if (storedUser && storedUser !== 'undefined' && storedUser !== 'null') {
+      discordUser = JSON.parse(storedUser);
+      console.log('Kullanıcı yüklendi:', discordUser);
+    }
+  } catch (error) {
+    console.error('Kullanıcı bilgisi yüklenirken hata:', error);
+    localStorage.removeItem('discordUser');
+    discordUser = null;
+  }
 }
+
 loadDiscordUser();
 
-const params=new URLSearchParams(window.location.search);
-const code=params.get('code');
-if(code){
-  discordUser={id:'temp_'+Date.now(),username:'DiscordKullanici',discriminator:'0000',avatar:'https://cdn.discordapp.com/embed/avatars/0.png'};
-  localStorage.setItem('discordUser',JSON.stringify(discordUser));
-  document.getElementById('userAvatar').src=discordUser.avatar; document.getElementById('userAvatar').style.display='block';
-  window.history.replaceState({},document.title,window.location.pathname);
-  setTimeout(()=>{showForum();},500);
+const params = new URLSearchParams(window.location.search);
+const code = params.get('code');
+
+if (code) {
+  try {
+    const userObj = {
+      id: 'temp_' + Date.now(),
+      username: 'DiscordKullanici',
+      discriminator: '0000'
+    };
+    
+    discordUser = userObj;
+    localStorage.setItem('discordUser', JSON.stringify(userObj));
+    
+    window.history.replaceState({}, document.title, window.location.pathname);
+    
+    setTimeout(() => {
+      showForum();
+    }, 500);
+  } catch (error) {
+    console.error('Kullanıcı kaydedilirken hata:', error);
+  }
 }
 
-function showForum(){document.getElementById("forumCard").style.display="flex";}
-function hideForum(){document.getElementById("forumCard").style.display="none";document.getElementById("forumInput").value="";}
+function showForum() {
+  document.getElementById("forumCard").style.display = "flex";
+}
 
-document.getElementById("suggestBtn").addEventListener("click",()=>{
-  if(!discordUser){window.location.href=oauthUrl;} else {showForum();}
+function hideForum() {
+  document.getElementById("forumCard").style.display = "none";
+  document.getElementById("forumInput").value = "";
+}
+
+document.getElementById("suggestBtn").addEventListener("click", () => {
+  console.log('Butona tıklandı, discordUser:', discordUser);
+  
+  if (!discordUser) {
+    console.log('Kullanıcı yok, Discord OAutha yönlendiriliyor...');
+    window.location.href = oauthUrl;
+  } else {
+    console.log('Kullanıcı var, form gösteriliyor...');
+    showForum();
+  }
 });
-document.getElementById("closeBtn").addEventListener("click",hideForum);
-document.getElementById("sendBtn").addEventListener("click",async()=>{
-  const msg=document.getElementById("forumInput").value; if(!msg) return alert("Mesaj boş olamaz");
-  try{
-    const userId=discordUser?.id||'BilinmeyenKullanici';
-    const webhookMessage={content:`Kullanıcı: <@${userId}>\nMesajı: ${msg}`};
-    await fetch(webhookUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(webhookMessage)});
+
+document.getElementById("closeBtn").addEventListener("click", hideForum);
+
+document.getElementById("sendBtn").addEventListener("click", async () => {
+  const msg = document.getElementById("forumInput").value;
+  if (!msg) return alert("Mesaj boş olamaz");
+  
+  try {
+    const userId = discordUser?.id || 'BilinmeyenKullanici';
+    const webhookMessage = {
+      content: `Kullanıcı: <@${userId}>\nMesaj: ${msg}`
+    };
+    
+    await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(webhookMessage)
+    });
+    
+    alert("Mesaj gönderildi!");
     hideForum();
-    alert('Mesajınız Başarıyla İletildi! Takip Etmek İçin Sunucumuza Katılın: https://discord.gg/duVuC85Uz6');
-  }catch(e){console.error('Gönderme hatası:',e); alert("Mesaj gönderilemedi");}
+  } catch (e) {
+    console.error('Gönderme hatası:', e);
+    alert("Mesaj gönderilemedi");
+  }
 });
 
+window.addEventListener('error', function(e) {
+  console.error('Global hata:', e.error);
+});
 </script>
 </body>
 </html>
