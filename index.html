@@ -117,35 +117,12 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
   transition: width 1s ease-in-out;
 }
 
-#forumCard{
-  display:none;
-  background:rgba(0,0,0,0.25);
-  border:1px solid rgba(255,255,255,0.06);
-  padding:1.5rem;
-  border-radius:16px;
-  backdrop-filter:blur(6px);
-  width:100%;
-  max-width:500px;
-  flex-direction:column;
-  gap:10px;
-  margin-top:20px;
-  position:relative;
-}
-#forumCard textarea{
-  width:100%;padding:10px;border-radius:8px;border:none;resize:none;height:80px;
-}
-#forumCard button{
-  padding:8px 12px;border-radius:6px;border:none;background:#8B4513;color:#fff;cursor:pointer;
-}
-#forumCard .closeBtn{
-  position:absolute;top:10px;right:10px;
-  background:#8B4513;color:#fff;border:none;padding:4px 8px;
-  border-radius:6px;cursor:pointer;
-}
+#forumCard{display:none;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.06);padding:1.5rem;border-radius:16px;backdrop-filter:blur(6px);width:100%;max-width:500px;flex-direction:column;gap:10px;margin-top:20px;position:relative;}
+#forumCard textarea{width:100%;padding:10px;border-radius:8px;border:none;resize:none;height:80px;}
+#forumCard button{padding:8px 12px;border-radius:6px;border:none;background:#8B4513;color:#fff;cursor:pointer;}
+#forumCard .close-btn{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;background:#8B4513;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:bold;font-size:14px;}
 
-#suggestBtn{
-  position:fixed;top:16px;right:16px;padding:10px 14px;border-radius:8px;border:none;background:#8B4513;color:#fff;cursor:pointer;z-index:20;
-}
+#suggestBtn{position:fixed;top:16px;right:16px;padding:10px 14px;border-radius:8px;border:none;background:#8B4513;color:#fff;cursor:pointer;z-index:20;}
 
 @media (max-width:720px){
   .card{padding:1.2rem}
@@ -177,7 +154,41 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
 </div>
 
 <div class="socials">
-  <!-- Widgets burada -->
+  <div class="widget spotify" id="spotify" onclick="window.open('https://open.spotify.com/user/31ksdwh2vg2wswtd4da2bhjw7zpu?si=f8984cf7c36b447d','_blank')">
+    <div class="header"><img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify logo"><span>Spotify</span></div>
+    <div class="body">
+      <img class="icon" id="spImg" src="https://dummyimage.com/300x300/111/fff&text=Spotify" alt="Albüm kapağı">
+      <div class="meta">
+        <div class="title" id="spTitle">Çalmıyor</div>
+        <div class="sub" id="spSub">Bilgi alınamadı</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="widget discord" id="discord" onclick="window.open('https://discord.com/users/1385334666483208213','_blank')">
+    <div class="header"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/discord-white-icon.png" alt="Discord logo"><span>Discord</span></div>
+    <div class="body">
+      <img class="icon" id="dcImg" src="https://dummyimage.com/300x300/5865f2/fff&text=DC" alt="Discord avatar">
+      <div class="meta">
+        <div class="title" id="dcTitle">Discord</div>
+        <div class="sub" id="discordName">@kullanici#0000</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="widget github" id="github" onclick="if(gh)window.open(gh.html_url,'_blank')">
+    <div class="header">
+      <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/github-white-icon.png" alt="GitHub logo">
+      <span>GitHub</span>
+    </div>
+    <div class="body">
+      <img class="icon" id="ghImg" src="https://dummyimage.com/300x300/111/fff&text=GitHub" alt="GitHub avatar">
+      <div class="meta">
+        <div class="title" id="ghName">Yükleniyor...</div>
+        <div class="sub" id="ghSub">GitHub profiline bakmak için tıkla</div>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 
@@ -198,7 +209,7 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
 </div>
 
 <div id="forumCard">
-  <button class="closeBtn">X</button>
+  <div class="close-btn" id="closeBtn">X</div>
   <h2>İstek / Öneri Gönder</h2>
   <textarea id="forumInput" placeholder="Mesajınızı yazın..."></textarea>
   <button id="sendBtn">Gönder</button>
@@ -215,7 +226,6 @@ window.addEventListener('mousemove',e=>p(e.clientX,e.clientY),{passive:true});
 function f(){cX+=(tX-cX)*D;cY+=(tY-cY)*D;l.style.transform=`translate3d(${cX}px, ${cY}px, 0) translate(-50%, -50%)`;if(Math.abs(tX-cX)<0.02&&Math.abs(tY-cY)<0.02){cancelAnimationFrame(r);r=null;return;}r=requestAnimationFrame(f);}
 })();
 
-// Geri sayım
 (function(){
 const d=document.getElementById('days'),h=document.getElementById('hours'),m=document.getElementById('minutes'),s=document.getElementById('seconds');
 let tgt = localStorage.getItem('countdownTarget');
@@ -227,46 +237,134 @@ function u(){ const t = tgt - Date.now(); if(t<=0){ a(d,'0'); a(h,'00'); a(m,'00
 u(); setInterval(u,1000);
 })();
 
-// Öneri / İstek butonu
+(function(){
+const dn=document.getElementById('discordName'),di=document.getElementById('dcImg'),st=document.getElementById('spTitle'),ss=document.getElementById('spSub'),si=document.getElementById('spImg');
+const uid="1385334666483208213";
+let curS=null;
+async function fL(){try{const r=await fetch(`https://api.lanyard.rest/v1/users/${uid}`);const j=await r.json();if(!j.success)throw 0;const d=j.data;const u=d.discord_user;di.src=`https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=128`;dn.textContent=u.username;if(d.listening_to_spotify){curS=d.spotify;st.textContent=curS.song;si.src=curS.album_art_url;uST();}else{curS=null;st.textContent='Çalmıyor';ss.textContent='Bilgi alınamadı';si.src="https://dummyimage.com/300x300/111/fff&text=Spotify";}}catch(e){dn.textContent="Discord verisi yok";st.textContent="Spotify: Bağlantı yok";ss.textContent='';}}
+function uST(){if(!curS||!curS.timestamps)return;const n=Date.now();let e=Math.floor((n-curS.timestamps.start)/1000);let t=Math.floor((curS.timestamps.end-curS.timestamps.start)/1000);function f(sec){const mm=Math.floor(sec/60).toString().padStart(2,'0');const ss=(sec%60).toString().padStart(2,'0');return `${mm}:${ss}`;}ss.textContent=`${curS.artist} • ${f(e)} / ${f(t)}`;}
+setInterval(fL,1000);setInterval(()=>{if(curS)uST();},1000);
+})();
+
+let gh=null;
+async function fGH(u){try{const r=await fetch(`https://api.github.com/users/${u}`);const d=await r.json();gh=d;document.getElementById('ghImg').src=d.avatar_url;document.getElementById('ghName').textContent=d.login;document.getElementById('ghSub').textContent=`Public repos: ${d.public_repos} • Followers: ${d.followers}`;}catch(e){document.getElementById('ghName').textContent="GitHub yüklenemedi";document.getElementById('ghSub').textContent='';}}
+fGH("n4mune-lang");
+
+function animateLoad(id, target, delay){
+  let width=0;
+  const el = document.getElementById(id);
+  const interval = setInterval(()=>{
+    if(width>=target){ clearInterval(interval); return; }
+    width++;
+    el.style.width=width+'%';
+  }, delay);
+}
+animateLoad('dbLoad', 22, 20);
+animateLoad('serverLoad', 36, 25);
+animateLoad('catLoad', 12, 30);
+
 const oauthUrl = "https://discord.com/oauth2/authorize?client_id=1420075937772339220&response_type=code&redirect_uri=https%3A%2F%2Fn4mune-lang.github.io%2Fcodecamp%2F&scope=identify";
 const webhookUrl = "https://discord.com/api/webhooks/1420047378857066598/pMR3I5p4Pk3Qg4NCcfxS-8ktrUZDW5CW5CW1xG11Iq5R3bsa5K8DtxtvpxnCc_3fA2njCzA";
 
-const forumCard = document.getElementById("forumCard");
-const forumInput = document.getElementById("forumInput");
+let discordUser = null;
 
-document.getElementById("suggestBtn").addEventListener("click", ()=>{
-  if(!localStorage.getItem("discordUser")){
+// Discord kullanıcı bilgisini al
+async function getDiscordUser(code) {
+  try {
+    const response = await fetch('https://discord.com/api/oauth2/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        client_id: '1420075937772339220',
+        client_secret: 'YOUR_CLIENT_SECRET', // Buraya gerçek client secret'ınızı eklemelisiniz
+        grant_type: 'authorization_code',
+        code: code,
+        redirect_uri: 'https://n4mune-lang.github.io/codecamp/',
+      }),
+    });
+    
+    const data = await response.json();
+    if (data.access_token) {
+      const userResponse = await fetch('https://discord.com/api/users/@me', {
+        headers: {
+          authorization: `${data.token_type} ${data.access_token}`,
+        },
+      });
+      return await userResponse.json();
+    }
+  } catch (error) {
+    console.error('Discord kullanıcı bilgisi alınamadı:', error);
+  }
+  return null;
+}
+
+// URL'den code parametresini kontrol et
+const params = new URLSearchParams(window.location.search);
+const code = params.get('code');
+
+if (code) {
+  // Code varsa, kullanıcı bilgisini al ve formu göster
+  getDiscordUser(code).then(user => {
+    if (user) {
+      discordUser = user;
+      localStorage.setItem('discordUser', JSON.stringify(user));
+      // URL'yi temizle
+      window.history.replaceState({}, document.title, window.location.pathname);
+      showForum();
+    }
+  });
+} else {
+  // LocalStorage'dan kullanıcı bilgisini yükle
+  const storedUser = localStorage.getItem('discordUser');
+  if (storedUser) {
+    discordUser = JSON.parse(storedUser);
+  }
+}
+
+document.getElementById("suggestBtn").addEventListener("click", () => {
+  if (!discordUser) {
+    // Kullanıcı giriş yapmamışsa Discord OAuth'a yönlendir
     window.location.href = oauthUrl;
   } else {
-    forumCard.style.display = "flex";
+    // Kullanıcı giriş yapmışsa formu göster
+    showForum();
   }
 });
 
-document.querySelector("#forumCard .closeBtn").addEventListener("click", ()=>{
-  forumCard.style.display="none";
-});
-
-const params = new URLSearchParams(window.location.search);
-const code = params.get("code");
-if(code && !localStorage.getItem("discordUser")){
-  localStorage.setItem("discordUser", code);
-  forumCard.style.display = "flex";
+function showForum() {
+  document.getElementById("forumCard").style.display = "flex";
 }
 
-document.getElementById("sendBtn").addEventListener("click", async ()=>{
-  const msg = forumInput.value;
-  if(!msg) return alert("Mesaj boş olamaz");
-  const userId = localStorage.getItem("discordUser");
-  try{
-    await fetch(webhookUrl,{
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({ content: `Kullanıcı: <@${userId}>\nMesaj: ${msg}` })
+function hideForum() {
+  document.getElementById("forumCard").style.display = "none";
+  document.getElementById("forumInput").value = "";
+}
+
+// Kapatma butonu
+document.getElementById("closeBtn").addEventListener("click", hideForum);
+
+// Gönderme butonu
+document.getElementById("sendBtn").addEventListener("click", async () => {
+  const msg = document.getElementById("forumInput").value;
+  if (!msg) return alert("Mesaj boş olamaz");
+  
+  try {
+    // Webhook mesajını oluştur
+    const webhookMessage = {
+      content: `Kullanıcı: <@${discordUser.id}>\nMesaj: ${msg}`
+    };
+    
+    await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(webhookMessage)
     });
+    
     alert("Mesaj gönderildi!");
-    forumInput.value="";
-    forumCard.style.display="none";
-  }catch(e){
+    hideForum();
+  } catch (e) {
     alert("Mesaj gönderilemedi");
   }
 });
