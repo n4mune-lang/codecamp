@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Geri Sayım</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:#06080a;
+  color:#fff;
+  overflow:hidden;
+}
+.bg{position:fixed;inset:0;overflow:hidden;pointer-events:none}
+.bg__layer{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  width:140vw;height:140vh;
+  background-image: url('https://i.hizliresim.com/j6s5dzh.jpg');
+  background-size:cover;background-position:center;
+  filter:brightness(0.55) saturate(1.05) contrast(1.02);
+  will-change:transform;transition:transform 0.2s linear;
+}
+.wrap{position:relative;z-index:10;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+.card{
+  background:rgba(0,0,0,0.25);
+  border:1px solid rgba(255,255,255,0.06);
+  padding:2.2rem;border-radius:16px;
+  backdrop-filter:blur(6px);
+  max-width:980px;width:100%;
+  text-align:center;
+}
+h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.75rem;line-height:1.2}
+
+.countdown-wrapper{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  flex-direction:row;
+}
+.countdown{
+  display:flex;gap:12px;justify-content:center;align-items:center;
+}
+.countdown .unit{
+  background:rgba(255,255,255,0.04);
+  padding:12px 14px;
+  border-radius:10px;
+  min-width:86px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,0.04);
+  position:relative;
+  overflow:hidden;
+}
+.countdown .unit .value{
+  font-size:1.5rem;font-weight:700;
+  display:inline-block;
+  animation: fade 0.3s ease-in-out;
+}
+.countdown .unit .label{font-size:.72rem;opacity:.8;margin-top:6px}
+#afterText{
+  font-size:0.85rem;
+  opacity:0.8;
+  margin-left:12px;
+  margin-bottom:0;
+  white-space:nowrap;
+  align-self:flex-end;
+  margin-top:25px;
+}
+@keyframes fade{
+  0%{transform:translateY(-20px);opacity:0;}
+  50%{transform:translateY(5px);opacity:0.5;}
+  100%{transform:translateY(0);opacity:1;}
+}
+
+.socials{display:flex;gap:14px;align-items:flex-start;justify-content:center;margin-top:1rem;flex-wrap:wrap}
+.widget{
+  display:flex;flex-direction:column;
+  padding:10px 14px;border-radius:12px;
+  border:1px solid rgba(0,0,0,0.15);min-width:260px;color:#fff;
+  transition:transform 0.2s;
+  cursor:pointer;
+  text-align:left;
+}
+.widget:hover{transform:scale(1.03);}
+.widget .header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.widget .header img{width:24px;height:24px;}
+.widget .header span{font-weight:700;font-size:1rem;}
+.widget .body{display:flex;align-items:center;gap:12px;}
+.widget .body img.icon{width:56px;height:56px;border-radius:8px;object-fit:cover}
+.widget .meta{display:flex;flex-direction:column}
+.widget .meta .title{font-weight:700;font-size:1rem;text-align:left;}
+.widget .meta .sub{font-size:.85rem;opacity:.85;text-align:left;}
+
+.widget.spotify{background:#1DB954;}
+.widget.discord{background:#5865F2;}
+.widget.discord .body img.icon{border-radius:50%;}
+.widget.github{background:#24292F;}
+.widget.github .meta .sub{color:#aaa;}
+
+@media (max-width:720px){
+  .card{padding:1.2rem}
+  .countdown{flex-wrap:wrap}
+  h1.big{font-size:clamp(1.3rem,4vw,1.8rem)}
+}
+
+.muted{opacity:.75;font-size:.85rem;text-align:center;margin-top:12px}
+</style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true">
+  <div class="bg__layer" id="bgLayer"></div>
+</div>
+
+<div class="wrap">
+<div class="card" role="main">
+<h1 class="big">Discord botları için kod paylaşım sitesi şu zaman aktif olacaktır:</h1>
+</br>
+<div class="countdown-wrapper">
+  <div class="countdown" id="countdown" aria-live="polite">
+    <div class="unit"><div class="value" id="days">0</div><div class="label">Gün</div></div>
+    <div class="unit"><div class="value" id="hours">00</div><div class="label">Saat</div></div>
+    <div class="unit"><div class="value" id="minutes">00</div><div class="label">Dakika</div></div>
+    <div class="unit"><div class="value" id="seconds">00</div><div class="label">Saniye</div></div>
+  </div>
+  <span id="afterText">sonra...</span>
+</div>
+</br>
+<div class="socials">
+  <div class="widget spotify" id="spotify" onclick="window.open('https://open.spotify.com/user/31ksdwh2vg2wswtd4da2bhjw7zpu?si=f8984cf7c36b447d','_blank')">
+    <div class="header"><img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify logo"><span>Spotify</span></div>
+    <div class="body">
+      <img class="icon" id="spImg" src="https://dummyimage.com/300x300/111/fff&text=Spotify" alt="Albüm kapağı">
+      <div class="meta">
+        <div class="title" id="spTitle">Çalmıyor</div>
+        <div class="sub" id="spSub">Bilgi alınamadı</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="widget discord" id="discord" onclick="window.open('https://discord.com/users/1385334666483208213','_blank')">
+    <div class="header"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/discord-white-icon.png" alt="Discord logo"><span>Discord</span></div>
+    <div class="body">
+      <img class="icon" id="dcImg" src="https://dummyimage.com/300x300/5865f2/fff&text=DC" alt="Discord avatar">
+      <div class="meta">
+        <div class="title" id="dcTitle">Discord</div>
+        <div class="sub" id="discordName">@kullanici#0000</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="widget github" id="github" onclick="if(gh)window.open(gh.html_url,'_blank')">
+    <div class="header">
+      <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/github-white-icon.png" alt="GitHub logo">
+      <span>GitHub</span>
+    </div>
+    <div class="body">
+      <img class="icon" id="ghImg" src="https://dummyimage.com/300x300/111/fff&text=GitHub" alt="GitHub avatar">
+      <div class="meta">
+        <div class="title" id="ghName">Yükleniyor...</div>
+        <div class="sub" id="ghSub">GitHub profiline bakmak için tıkla</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+(function(){
+const l=document.getElementById('bgLayer'),M=50,D=0.8;
+let tX=0,tY=0,cX=0,cY=0,r=null;
+function p(x,y){tX=-(x/window.innerWidth-0.5)*M;tY=-(y/window.innerHeight-0.5)*M;if(!r)r=requestAnimationFrame(f);}
+window.addEventListener('mousemove',e=>p(e.clientX,e.clientY),{passive:true});
+function f(){cX+=(tX-cX)*D;cY+=(tY-cY)*D;l.style.transform=`translate3d(${cX}px, ${cY}px, 0) translate(-50%, -50%)`;if(Math.abs(tX-cX)<0.02&&Math.abs(tY-cY)<0.02){cancelAnimationFrame(r);r=null;return;}r=requestAnimationFrame(f);}
+})();
+
+(function(){
+const d=document.getElementById('days'),h=document.getElementById('hours'),m=document.getElementById('minutes'),s=document.getElementById('seconds');
+const tgt=new Date(Date.now()+60*24*60*60*1000);
+function pad(n){return String(n).padStart(2,'0');}
+function a(el,v){el.classList.remove('animate');void el.offsetWidth;el.textContent=v;el.classList.add('animate');}
+function u(){const t=tgt-Date.now();if(t<=0){a(d,'0');a(h,'00');a(m,'00');a(s,'00');return;}const sec=Math.floor(t/1000);const D=Math.floor(sec/86400);const H=Math.floor((sec%86400)/3600);const M=Math.floor((sec%3600)/60);const S=sec%60;a(d,D);a(h,pad(H));a(m,pad(M));a(s,pad(S));}
+u();setInterval(u,1000);
+})();
+
+(function(){
+const dn=document.getElementById('discordName'),di=document.getElementById('dcImg'),st=document.getElementById('spTitle'),ss=document.getElementById('spSub'),si=document.getElementById('spImg');
+const uid="1385334666483208213";
+let curS=null;
+async function fL(){try{const r=await fetch(`https://api.lanyard.rest/v1/users/${uid}`);const j=await r.json();if(!j.success)throw 0;const d=j.data;const u=d.discord_user;di.src=`https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=128`;dn.textContent=u.username;if(d.listening_to_spotify){curS=d.spotify;st.textContent=curS.song;si.src=curS.album_art_url;uST();}else{curS=null;st.textContent='Çalmıyor';ss.textContent='Bilgi alınamadı';si.src="https://dummyimage.com/300x300/111/fff&text=Spotify";}}catch(e){dn.textContent="Discord verisi yok";st.textContent="Spotify: Bağlantı yok";ss.textContent='';}}
+function uST(){if(!curS||!curS.timestamps)return;const n=Date.now();let e=Math.floor((n-curS.timestamps.start)/1000);let t=Math.floor((curS.timestamps.end-curS.timestamps.start)/1000);function f(sec){const mm=Math.floor(sec/60).toString().padStart(2,'0');const ss=(sec%60).toString().padStart(2,'0');return `${mm}:${ss}`;}ss.textContent=`${curS.artist} • ${f(e)} / ${f(t)}`;}
+setInterval(fL,1000);setInterval(()=>{if(curS)uST();},1000);
+})();
+
+let gh=null;
+async function fGH(u){try{const r=await fetch(`https://api.github.com/users/${u}`);const d=await r.json();gh=d;document.getElementById('ghImg').src=d.avatar_url;document.getElementById('ghName').textContent=d.login;document.getElementById('ghSub').textContent=`Public repos: ${d.public_repos} • Followers: ${d.followers}`;}catch(e){document.getElementById('ghName').textContent="GitHub yüklenemedi";document.getElementById('ghSub').textContent='';}}
+fGH("n4mune-lang");
+</script>
+</body>
+</html>
