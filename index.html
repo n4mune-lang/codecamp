@@ -33,8 +33,17 @@ body{
   text-align:center;
 }
 h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.75rem;line-height:1.2}
-.countdown-wrapper{display:flex;align-items:center;justify-content:center;gap:12px;flex-direction:row;}
-.countdown{display:flex;gap:12px;justify-content:center;align-items:center;}
+
+.countdown-wrapper{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  flex-direction:row;
+}
+.countdown{
+  display:flex;gap:12px;justify-content:center;align-items:center;
+}
 .countdown .unit{
   background:rgba(255,255,255,0.04);
   padding:12px 14px;
@@ -45,12 +54,36 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
   position:relative;
   overflow:hidden;
 }
-.countdown .unit .value{font-size:1.5rem;font-weight:700;display:inline-block;animation: fade 0.3s ease-in-out;}
+.countdown .unit .value{
+  font-size:1.5rem;font-weight:700;
+  display:inline-block;
+  animation: fade 0.3s ease-in-out;
+}
 .countdown .unit .label{font-size:.72rem;opacity:.8;margin-top:6px}
-#afterText{font-size:0.85rem;opacity:0.8;margin-left:12px;margin-bottom:0;white-space:nowrap;align-self:flex-end;margin-top:25px;}
-@keyframes fade{0%{transform:translateY(-20px);opacity:0;}50%{transform:translateY(5px);opacity:0.5;}100%{transform:translateY(0);opacity:1;}}
+#afterText{
+  font-size:0.85rem;
+  opacity:0.8;
+  margin-left:12px;
+  margin-bottom:0;
+  white-space:nowrap;
+  align-self:flex-end;
+  margin-top:25px;
+}
+@keyframes fade{
+  0%{transform:translateY(-20px);opacity:0;}
+  50%{transform:translateY(5px);opacity:0.5;}
+  100%{transform:translateY(0);opacity:1;}
+}
+
 .socials{display:flex;gap:14px;align-items:flex-start;justify-content:center;margin-top:1rem;flex-wrap:wrap}
-.widget{display:flex;flex-direction:column;padding:10px 14px;border-radius:12px;border:1px solid rgba(0,0,0,0.15);min-width:260px;color:#fff;transition:transform 0.2s;cursor:pointer;text-align:left;}
+.widget{
+  display:flex;flex-direction:column;
+  padding:10px 14px;border-radius:12px;
+  border:1px solid rgba(0,0,0,0.15);min-width:260px;color:#fff;
+  transition:transform 0.2s;
+  cursor:pointer;
+  text-align:left;
+}
 .widget:hover{transform:scale(1.03);}
 .widget .header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
 .widget .header img{width:24px;height:24px;}
@@ -60,28 +93,45 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
 .widget .meta{display:flex;flex-direction:column}
 .widget .meta .title{font-weight:700;font-size:1rem;text-align:left;}
 .widget .meta .sub{font-size:.85rem;opacity:.85;text-align:left;}
+
 .widget.spotify{background:#1DB954;}
 .widget.discord{background:#5865F2;}
 .widget.discord .body img.icon{border-radius:50%;}
 .widget.github{background:#24292F;}
 .widget.github .meta .sub{color:#aaa;}
+
 .progress-container{display:flex;gap:8px;margin-top:20px;justify-content:center}
 .progress-bar{flex:1;height:12px;background:rgba(255,255,255,0.1);border-radius:6px;overflow:hidden;position:relative}
 .progress-bar .fill{height:100%;width:0;background:#1DB954;border-radius:6px;transition:width 1s ease-in-out}
+
 .second-card{background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.06);padding:2rem;border-radius:16px;backdrop-filter:blur(6px);width:100%;max-width:980px;text-align:left;display:flex;flex-direction:column;gap:16px}
 .second-card h2{margin-bottom:12px;font-size:1.3rem;font-weight:700}
 .second-card .load-item{display:flex;flex-direction:column;gap:4px}
 .second-card .load-label{font-size:0.9rem;opacity:0.8}
 .second-card .load-bar{height:14px;background:rgba(255,255,255,0.1);border-radius:7px;overflow:hidden;position:relative}
-.second-card .load-bar .fill {height:100%;width:0;background:#8B4513;border-radius:7px;transition:width 1s ease-in-out;}
+.second-card .load-bar .fill {
+  height: 100%;
+  width: 0;
+  background: #8B4513;
+  border-radius: 7px;
+  transition: width 1s ease-in-out;
+}
+
 #forumCard{display:none;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.06);padding:1.5rem;border-radius:16px;backdrop-filter:blur(6px);width:100%;max-width:500px;flex-direction:column;gap:10px;margin-top:20px;}
 #forumCard textarea{width:100%;padding:10px;border-radius:8px;border:none;resize:none;height:80px;}
 #forumCard button{padding:8px 12px;border-radius:6px;border:none;background:#8B4513;color:#fff;cursor:pointer;}
+
 #suggestBtn{position:fixed;top:16px;right:16px;padding:10px 14px;border-radius:8px;border:none;background:#8B4513;color:#fff;cursor:pointer;z-index:20;}
-@media (max-width:720px){.card{padding:1.2rem}.countdown{flex-wrap:wrap}h1.big{font-size:clamp(1.3rem,4vw,1.8rem)}}
+
+@media (max-width:720px){
+  .card{padding:1.2rem}
+  .countdown{flex-wrap:wrap}
+  h1.big{font-size:clamp(1.3rem,4vw,1.8rem)}
+}
 </style>
 </head>
 <body>
+
 <div class="bg" aria-hidden="true">
   <div class="bg__layer" id="bgLayer"></div>
 </div>
@@ -90,87 +140,126 @@ h1.big{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-1px;margin-bottom:.7
 
 <div class="wrap">
 
-  <div class="card" role="main">
-    <h1 class="big">Discord botları için kod paylaşım sitesi şu zaman aktif olacaktır:</h1>
-    <div class="countdown-wrapper">
-      <div class="countdown" id="countdown" aria-live="polite">
-        <div class="unit"><div class="value" id="days">0</div><div class="label">Gün</div></div>
-        <div class="unit"><div class="value" id="hours">00</div><div class="label">Saat</div></div>
-        <div class="unit"><div class="value" id="minutes">00</div><div class="label">Dakika</div></div>
-        <div class="unit"><div class="value" id="seconds">00</div><div class="label">Saniye</div></div>
-      </div>
-      <span id="afterText">sonra...</span>
-    </div>
+<div class="card" role="main">
+<h1 class="big">Discord botları için kod paylaşım sitesi şu zaman aktif olacaktır:</h1>
+<div class="countdown-wrapper">
+  <div class="countdown" id="countdown" aria-live="polite">
+    <div class="unit"><div class="value" id="days">0</div><div class="label">Gün</div></div>
+    <div class="unit"><div class="value" id="hours">00</div><div class="label">Saat</div></div>
+    <div class="unit"><div class="value" id="minutes">00</div><div class="label">Dakika</div></div>
+    <div class="unit"><div class="value" id="seconds">00</div><div class="label">Saniye</div></div>
+  </div>
+  <span id="afterText">sonra...</span>
+</div>
 
-    <div class="socials">
-      <div class="widget spotify" onclick="window.open('https://open.spotify.com/user/31ksdwh2vg2wswtd4da2bhjw7zpu?si=f8984cf7c36b447d','_blank')">
-        <div class="header"><img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify logo"><span>Spotify</span></div>
-        <div class="body">
-          <img class="icon" id="spImg" src="https://dummyimage.com/300x300/111/fff&text=Spotify" alt="Albüm kapağı">
-          <div class="meta">
-            <div class="title" id="spTitle">Çalmıyor</div>
-            <div class="sub" id="spSub">Bilgi alınamadı</div>
-          </div>
-        </div>
+<div class="socials">
+  <div class="widget spotify" id="spotify" onclick="window.open('https://open.spotify.com/user/31ksdwh2vg2wswtd4da2bhjw7zpu?si=f8984cf7c36b447d','_blank')">
+    <div class="header"><img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify logo"><span>Spotify</span></div>
+    <div class="body">
+      <img class="icon" id="spImg" src="https://dummyimage.com/300x300/111/fff&text=Spotify" alt="Albüm kapağı">
+      <div class="meta">
+        <div class="title" id="spTitle">Çalmıyor</div>
+        <div class="sub" id="spSub">Bilgi alınamadı</div>
       </div>
-
-      <div class="widget discord" onclick="window.open('https://discord.com/users/1385334666483208213','_blank')">
-        <div class="header"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/discord-white-icon.png" alt="Discord logo"><span>Discord</span></div>
-        <div class="body">
-          <img class="icon" id="dcImg" src="https://dummyimage.com/300x300/5865f2/fff&text=DC" alt="Discord avatar">
-          <div class="meta">
-            <div class="title" id="dcTitle">Discord</div>
-            <div class="sub" id="discordName">@kullanici#0000</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="widget github" id="github">
-        <div class="header">
-          <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/github-white-icon.png" alt="GitHub logo">
-          <span>GitHub</span>
-        </div>
-        <div class="body">
-          <img class="icon" id="ghImg" src="https://dummyimage.com/300x300/111/fff&text=GitHub" alt="GitHub avatar">
-          <div class="meta">
-            <div class="title" id="ghName">Yükleniyor...</div>
-            <div class="sub" id="ghSub">GitHub profiline bakmak için tıkla</div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 
-  <div class="second-card">
-    <h2>Yükleme Durumları</h2>
-    <div class="load-item">
-      <div class="load-label">Veritabanı</div>
-      <div class="load-bar"><div class="fill" id="dbLoad"></div></div>
-    </div>
-    <div class="load-item">
-      <div class="load-label">Sunucu</div>
-      <div class="load-bar"><div class="fill" id="serverLoad"></div></div>
-    </div>
-    <div class="load-item">
-      <div class="load-label">Kategoriler</div>
-      <div class="load-bar"><div class="fill" id="catLoad"></div></div>
+  <div class="widget discord" id="discord" onclick="window.open('https://discord.com/users/1385334666483208213','_blank')">
+    <div class="header"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/discord-white-icon.png" alt="Discord logo"><span>Discord</span></div>
+    <div class="body">
+      <img class="icon" id="dcImg" src="https://dummyimage.com/300x300/5865f2/fff&text=DC" alt="Discord avatar">
+      <div class="meta">
+        <div class="title" id="dcTitle">Discord</div>
+        <div class="sub" id="discordName">@kullanici#0000</div>
+      </div>
     </div>
   </div>
 
-  <div id="forumCard">
-    <h2>İstek / Öneri Gönder</h2>
-    <textarea id="forumInput" placeholder="Mesajınızı yazın..."></textarea>
-    <button id="sendBtn">Gönder</button>
+  <div class="widget github" id="github" onclick="if(gh)window.open(gh.html_url,'_blank')">
+    <div class="header">
+      <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/github-white-icon.png" alt="GitHub logo">
+      <span>GitHub</span>
+    </div>
+    <div class="body">
+      <img class="icon" id="ghImg" src="https://dummyimage.com/300x300/111/fff&text=GitHub" alt="GitHub avatar">
+      <div class="meta">
+        <div class="title" id="ghName">Yükleniyor...</div>
+        <div class="sub" id="ghSub">GitHub profiline bakmak için tıkla</div>
+      </div>
+    </div>
   </div>
+</div>
+</div>
+
+<div class="second-card">
+  <h2>Yükleme Durumları</h2>
+  <div class="load-item">
+    <div class="load-label">Veritabanı</div>
+    <div class="load-bar"><div class="fill" id="dbLoad"></div></div>
+  </div>
+  <div class="load-item">
+    <div class="load-label">Sunucu</div>
+    <div class="load-bar"><div class="fill" id="serverLoad"></div></div>
+  </div>
+  <div class="load-item">
+    <div class="load-label">Kategoriler</div>
+    <div class="load-bar"><div class="fill" id="catLoad"></div></div>
+  </div>
+</div>
+
+<div id="forumCard">
+  <h2>İstek / Öneri Gönder</h2>
+  <textarea id="forumInput" placeholder="Mesajınızı yazın..."></textarea>
+  <button id="sendBtn">Gönder</button>
+</div>
 
 </div>
 
 <script>
-(function(){ /* BG anim */ const l=document.getElementById('bgLayer'),M=50,D=0.8; let tX=0,tY=0,cX=0,cY=0,r=null; function p(x,y){tX=-(x/window.innerWidth-0.5)*M;tY=-(y/window.innerHeight-0.5)*M;if(!r)r=requestAnimationFrame(f);} window.addEventListener('mousemove',e=>p(e.clientX,e.clientY),{passive:true}); function f(){cX+=(tX-cX)*D;cY+=(tY-cY)*D;l.style.transform=`translate3d(${cX}px, ${cY}px, 0) translate(-50%, -50%)`;if(Math.abs(tX-cX)<0.02&&Math.abs(tY-cY)<0.02){cancelAnimationFrame(r);r=null;return;}r=requestAnimationFrame(f);} })();
-(function(){ /* Countdown */ const d=document.getElementById('days'),h=document.getElementById('hours'),m=document.getElementById('minutes'),s=document.getElementById('seconds'); let tgt = localStorage.getItem('countdownTarget'); if(!tgt){ tgt = new Date(Date.now() + 60*24*60*60*1000).toISOString(); localStorage.setItem('countdownTarget', tgt); } tgt = new Date(tgt); function pad(n){ return String(n).padStart(2,'0'); } function a(el,v){ el.classList.remove('animate'); void el.offsetWidth; el.textContent=v; el.classList.add('animate'); } function u(){ const t = tgt - Date.now(); if(t<=0){ a(d,'0'); a(h,'00'); a(m,'00'); a(s,'00'); return; } const sec = Math.floor(t/1000); const D = Math.floor(sec/86400); const H = Math.floor((sec%86400)/3600); const M = Math.floor((sec%3600)/60); const S = sec%60; a(d,D); a(h,pad(H)); a(m,pad(M)); a(s,pad(S)); } u(); setInterval(u,1000); })();
-let gh=null; async function fGH(u){try{const r=await fetch(`https://api.github.com/users/${u}`);const d=await r.json();gh=d;document.getElementById('ghImg').src=d.avatar_url;document.getElementById('ghName').textContent=d.login;document.getElementById('ghSub').textContent=`Public repos: ${d.public_repos} • Followers: ${d.followers}`;}catch(e){document.getElementById('ghName').textContent="GitHub yüklenemedi";document.getElementById('ghSub').textContent='';}} fGH("n4mune-lang");
-function animateLoad(id, target, delay){let width=0;const el = document.getElementById(id);const interval = setInterval(()=>{if(width>=target){clearInterval(interval);return;}width++;el.style.width=width+'%';}, delay);} animateLoad('dbLoad', 22, 20); animateLoad('serverLoad', 36, 25); animateLoad('catLoad', 12, 30);
+(function(){
+const l=document.getElementById('bgLayer'),M=50,D=0.8;
+let tX=0,tY=0,cX=0,cY=0,r=null;
+function p(x,y){tX=-(x/window.innerWidth-0.5)*M;tY=-(y/window.innerHeight-0.5)*M;if(!r)r=requestAnimationFrame(f);}
+window.addEventListener('mousemove',e=>p(e.clientX,e.clientY),{passive:true});
+function f(){cX+=(tX-cX)*D;cY+=(tY-cY)*D;l.style.transform=`translate3d(${cX}px, ${cY}px, 0) translate(-50%, -50%)`;if(Math.abs(tX-cX)<0.02&&Math.abs(tY-cY)<0.02){cancelAnimationFrame(r);r=null;return;}r=requestAnimationFrame(f);}
+})();
+
+(function(){
+const d=document.getElementById('days'),h=document.getElementById('hours'),m=document.getElementById('minutes'),s=document.getElementById('seconds');
+let tgt = localStorage.getItem('countdownTarget');
+if(!tgt){ tgt = new Date(Date.now() + 60*24*60*60*1000).toISOString(); localStorage.setItem('countdownTarget', tgt); }
+tgt = new Date(tgt);
+function pad(n){ return String(n).padStart(2,'0'); }
+function a(el,v){ el.classList.remove('animate'); void el.offsetWidth; el.textContent=v; el.classList.add('animate'); }
+function u(){ const t = tgt - Date.now(); if(t<=0){ a(d,'0'); a(h,'00'); a(m,'00'); a(s,'00'); return; } const sec = Math.floor(t/1000); const D = Math.floor(sec/86400); const H = Math.floor((sec%86400)/3600); const M = Math.floor((sec%3600)/60); const S = sec%60; a(d,D); a(h,pad(H)); a(m,pad(M)); a(s,pad(S)); }
+u(); setInterval(u,1000);
+})();
+
+(function(){
+const dn=document.getElementById('discordName'),di=document.getElementById('dcImg'),st=document.getElementById('spTitle'),ss=document.getElementById('spSub'),si=document.getElementById('spImg');
+const uid="1385334666483208213";
+let curS=null;
+async function fL(){try{const r=await fetch(`https://api.lanyard.rest/v1/users/${uid}`);const j=await r.json();if(!j.success)throw 0;const d=j.data;const u=d.discord_user;di.src=`https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=128`;dn.textContent=u.username;if(d.listening_to_spotify){curS=d.spotify;st.textContent=curS.song;si.src=curS.album_art_url;uST();}else{curS=null;st.textContent='Çalmıyor';ss.textContent='Bilgi alınamadı';si.src="https://dummyimage.com/300x300/111/fff&text=Spotify";}}catch(e){dn.textContent="Discord verisi yok";st.textContent="Spotify: Bağlantı yok";ss.textContent='';}}
+function uST(){if(!curS||!curS.timestamps)return;const n=Date.now();let e=Math.floor((n-curS.timestamps.start)/1000);let t=Math.floor((curS.timestamps.end-curS.timestamps.start)/1000);function f(sec){const mm=Math.floor(sec/60).toString().padStart(2,'0');const ss=(sec%60).toString().padStart(2,'0');return `${mm}:${ss}`;}ss.textContent=`${curS.artist} • ${f(e)} / ${f(t)}`;}
+setInterval(fL,1000);setInterval(()=>{if(curS)uST();},1000);
+})();
+
+let gh=null;
+async function fGH(u){try{const r=await fetch(`https://api.github.com/users/${u}`);const d=await r.json();gh=d;document.getElementById('ghImg').src=d.avatar_url;document.getElementById('ghName').textContent=d.login;document.getElementById('ghSub').textContent=`Public repos: ${d.public_repos} • Followers: ${d.followers}`;}catch(e){document.getElementById('ghName').textContent="GitHub yüklenemedi";document.getElementById('ghSub').textContent='';}}
+fGH("n4mune-lang");
+
+function animateLoad(id, target, delay){
+  let width=0;
+  const el = document.getElementById(id);
+  const interval = setInterval(()=>{
+    if(width>=target){ clearInterval(interval); return; }
+    width++;
+    el.style.width=width+'%';
+  }, delay);
+}
+animateLoad('dbLoad', 22, 20);
+animateLoad('serverLoad', 36, 25);
+animateLoad('catLoad', 12, 30);
 
 const oauthUrl = "https://discord.com/oauth2/authorize?client_id=1420075937772339220&response_type=code&redirect_uri=https%3A%2F%2Fn4mune-lang.github.io%2Fcodecamp%2F&scope=identify";
 const webhookUrl = "https://discord.com/api/webhooks/1420047378857066598/pMR3I5p4Pk3Qg4NCcfxS-8ktrUZDW5CW5CW1xG11Iq5R3bsa5K8DtxtvpxnCc_3fA2njCzA";
