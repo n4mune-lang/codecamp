@@ -439,10 +439,7 @@ setInterval(() => {
   setTimeout(startProgressBars, 100);
 }, 15000);
 
-// Discord OAuth ve form işlemleri
-const clientId = "1420075937772339220";
-const redirectUri = encodeURIComponent("https://n4mune-lang.github.io/codecamp/");
-const oauthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=identify`;
+// Discord OAuth ve form işlemleri - Basitleştirilmiş versiyon
 const webhookUrl = "https://discord.com/api/webhooks/1420047378857066598/pMR3I5p4Pk3Qg4NCcfxS-8ktrUZDW5CW5CW1xG11Iq5R3bsa5K8DtxtvpxnCc_3fA2njCzA";
 
 let discordUser = null;
@@ -465,95 +462,70 @@ function loadDiscordUser() {
 // Kullanıcı bilgisini güncelle
 function updateUserInfo() {
   if (discordUser) {
-    document.getElementById('userAvatar').src = `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png?size=64`;
-    document.getElementById('userName').textContent = `${discordUser.username}#${discordUser.discriminator}`;
+    document.getElementById('userAvatar').src = discordUser.avatarUrl || "https://cdn.discordapp.com/embed/avatars/0.png";
+    document.getElementById('userName').textContent = discordUser.username || "Kullanıcı";
     document.getElementById('userInfo').style.display = 'flex';
   } else {
     document.getElementById('userInfo').style.display = 'none';
   }
 }
 
-// URL parametrelerini kontrol et
-const params = new URLSearchParams(window.location.search);
-const code = params.get('code');
-
-if (code) {
-  // Kodu kullanarak kullanıcı bilgilerini al
-  getUserInfo(code);
-} else {
-  loadDiscordUser();
+// Manuel Discord giriş formu
+function showDiscordLogin() {
+  const loginForm = `
+    <div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:1000;">
+      <div style="background:#2f3136;padding:2rem;border-radius:10px;width:90%;max-width:400px;">
+        <h3 style="margin-bottom:1rem;">Discord Bilgilerinizi Girin</h3>
+        <input type="text" id="discordUsername" placeholder="Kullanıcı Adı" style="width:100%;padding:10px;margin-bottom:10px;border-radius:5px;border:none;">
+        <input type="text" id="discordId" placeholder="Kullanıcı ID (isteğe bağlı)" style="width:100%;padding:10px;margin-bottom:10px;border-radius:5px;border:none;">
+        <input type="text" id="discordAvatar" placeholder="Avatar URL (isteğe bağlı)" style="width:100%;padding:10px;margin-bottom:15px;border-radius:5px;border:none;">
+        <div style="display:flex;gap:10px;">
+          <button onclick="hideDiscordLogin()" style="flex:1;padding:10px;background:#72767d;border:none;border-radius:5px;color:white;cursor:pointer;">İptal</button>
+          <button onclick="submitDiscordLogin()" style="flex:1;padding:10px;background:#5865f2;border:none;border-radius:5px;color:white;cursor:pointer;">Giriş Yap</button>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  const existingForm = document.getElementById('discordLoginForm');
+  if (existingForm) existingForm.remove();
+  
+  const div = document.createElement('div');
+  div.id = 'discordLoginForm';
+  div.innerHTML = loginForm;
+  document.body.appendChild(div);
 }
 
-// Discord'dan kullanıcı bilgilerini al
-async function getUserInfo(code) {
-  try {
-    // Backend proxy kullanarak Discord API'ye istek atıyoruz
-    const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://discord.com/api/oauth2/token`)}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: `client_id=${clientId}&client_secret=YOUR_CLIENT_SECRET&grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}&scope=identify`
-    });
-    
-    const data = await response.json();
-    console.log('Token response:', data);
-    
-    if (data.access_token) {
-      // Kullanıcı bilgilerini al
-      const userResponse = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://discord.com/api/users/@me`)}`, {
-        headers: {
-          'Authorization': `Bearer ${data.access_token}`
-        }
-      });
-      
-      const userData = await userResponse.json();
-      console.log('User data:', userData);
-      
-      if (userData.id) {
-        discordUser = userData;
-        localStorage.setItem('discordUser', JSON.stringify(userData));
-        updateUserInfo();
-        
-        // URL'den kodu temizle
-        window.history.replaceState({}, document.title, window.location.pathname);
-        
-        // Formu göster
-        setTimeout(() => {
-          showForum();
-        }, 500);
-      } else {
-        throw new Error('Kullanıcı bilgisi alınamadı');
-      }
-    } else {
-      throw new Error('Token alınamadı');
-    }
-  } catch (error) {
-    console.error('Kullanıcı bilgisi alınırken hata:', error);
-    
-    // Fallback: Mock kullanıcı (sadece demo amaçlı)
-    console.log('Fallback: Mock kullanıcı kullanılıyor');
-    const mockUser = {
-      id: '123456789',
-      username: 'DemoKullanici',
-      discriminator: '1234',
-      avatar: 'a_abc123def456'
-    };
-    
-    discordUser = mockUser;
-    localStorage.setItem('discordUser', JSON.stringify(mockUser));
-    updateUserInfo();
-    
-    // URL'den kodu temizle
-    window.history.replaceState({}, document.title, window.location.pathname);
-    
-    // Formu göster
-    setTimeout(() => {
-      showForum();
-    }, 500);
-    
-    showNotification('Demo modu: Gerçek Discord bağlantısı için backend gerekli', false);
+function hideDiscordLogin() {
+  const form = document.getElementById('discordLoginForm');
+  if (form) form.remove();
+}
+
+function submitDiscordLogin() {
+  const username = document.getElementById('discordUsername').value;
+  const id = document.getElementById('discordId').value;
+  const avatarUrl = document.getElementById('discordAvatar').value;
+  
+  if (!username) {
+    showNotification('Lütfen kullanıcı adınızı girin', false);
+    return;
   }
+  
+  discordUser = {
+    username: username,
+    id: id || 'manual_' + Date.now(),
+    avatarUrl: avatarUrl || "https://cdn.discordapp.com/embed/avatars/0.png"
+  };
+  
+  localStorage.setItem('discordUser', JSON.stringify(discordUser));
+  updateUserInfo();
+  hideDiscordLogin();
+  showNotification('Başarıyla giriş yapıldı!');
+  
+  // Formu göster
+  setTimeout(() => {
+    showForum();
+  }, 500);
 }
 
 // Bildirim göster
@@ -582,7 +554,7 @@ function hideForum() {
 // İstek/Öneri butonu
 document.getElementById("suggestBtn").addEventListener("click", () => {
   if (!discordUser) {
-    window.location.href = oauthUrl;
+    showDiscordLogin();
   } else {
     showForum();
   }
@@ -613,10 +585,13 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
         description: msg,
         color: 0x8B4513,
         author: {
-          name: `${discordUser.username}#${discordUser.discriminator}`,
-          icon_url: `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`
+          name: discordUser.username,
+          icon_url: discordUser.avatarUrl
         },
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        footer: {
+          text: "Manuel Giriş - Kullanıcı ID: " + discordUser.id
+        }
       }]
     };
     
@@ -632,6 +607,11 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
     console.error('Gönderme hatası:', e);
     showNotification('Mesaj gönderilemedi', false);
   }
+});
+
+// Sayfa yüklendiğinde kullanıcı bilgisini yükle
+window.addEventListener('load', () => {
+  loadDiscordUser();
 });
 
 // Hata yakalama
